@@ -26,8 +26,13 @@ var current_state: PlayerState
 var states = {}
 var is_walking_toggled: bool = false 
 
+@export var max_health: int = 100
+var health: int = max_health
+
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	add_to_group("player")
+	health = max_health
 	states = {
 		"idle": IdleState.new(self),
 		"move": MoveState.new(self)
@@ -94,6 +99,17 @@ func change_state(state_name: String) -> void:
 	if current_state: current_state.exit()
 	current_state = states[state_name]
 	current_state.enter()
+
+func take_damage(amount: int) -> void:
+	health = max(0, health - amount)
+	print("Player took ", amount, " damage (HP ", health, "/", max_health, ")")
+	if health <= 0:
+		_die()
+
+func _die() -> void:
+	print("Player has died")
+	# TODO: Add respawn / disable input / play animation
+	pass
 
 # --- INNER STATES (Bottom of Script) ---
 

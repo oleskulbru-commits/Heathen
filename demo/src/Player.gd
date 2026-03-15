@@ -26,6 +26,10 @@ extends CharacterBody3D
 		$CollisionShapeRay.disabled = ! collision_enabled
 
 
+func _ready() -> void:
+	add_to_group("player")
+
+
 func _physics_process(p_delta) -> void:
 	var direction: Vector3 = get_camera_relative_input()
 	var h_veloc: Vector2 = Vector2(direction.x, direction.z).normalized() * MOVE_SPEED

@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://xr01ljhw352h" path="res://Assets/Levels/frafjord_dirdal_v01.tscn" id="2_pu3va"]
 [ext_resource type="PackedScene" uid="uid://dak1ipbutb7yv" path="res://Assets/Characters/Protagonist/Scenes/player.tscn" id="3_0e3vx"]
 [ext_resource type="PackedScene" uid="uid://0py7ywc52yop" path="res://Assets/Levels/Maudal.tscn" id="3_82p1x"]
+[ext_resource type="PackedScene" uid="uid://6iate5b7ewkb" path="res://Assets/Characters/Bandits/Bandit.tscn" id="4_daskt"]
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_34nvg"]
 ground_color = Color(0.259448, 0.19712088, 0.12685087, 1)
@@ -53,3 +54,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1142.4584, 12.130913, 773.700
 [node name="LightmapGI" type="LightmapGI" parent="." unique_id=1123142047]
 camera_attributes = SubResource("CameraAttributesPhysical_82p1x")
 light_data = SubResource("LightmapGIData_daskt")
+
+[node name="Bandit" parent="." unique_id=1239704359 instance=ExtResource("4_daskt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1073.9946, 0.3019719, 763.3911)

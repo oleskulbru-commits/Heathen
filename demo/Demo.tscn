@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bb2lp50sjndus" path="res://demo/components/Environment.tscn" id="3_yqldq"]
 [ext_resource type="PackedScene" uid="uid://d3sr0a7dxfkr8" path="res://addons/terrain_3d/extras/particle_example/Terrain3DParticles.tscn" id="8_fwrtk"]
 [ext_resource type="Terrain3DAssets" uid="uid://dal3jhw6241qg" path="res://demo/data/assets.tres" id="8_g2of2"]
+[ext_resource type="PackedScene" uid="uid://demo_bandit_scene" path="res://demo/components/Bandit.tscn" id="9_bandit"]
 
 [sub_resource type="Gradient" id="Gradient_vr1m7"]
 offsets = PackedFloat32Array(0.2, 1)
@@ -86,6 +87,9 @@ collision_mask = 3
 
 [node name="Player" parent="." instance=ExtResource("3_ht63y")]
 transform = Transform3D(0.176947, 0, -0.98422, 0, 1, 0, 0.98422, 0, 0.176947, 223.143, 105.348, -1833.08)
+
+[node name="Bandit" parent="." instance=ExtResource("9_bandit")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 225, 105, -1835)
 
 [node name="Terrain3D" type="Terrain3D" parent="."]
 data_directory = "res://demo/data"

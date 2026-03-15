@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://c6g6mf60ptph6"]
+
+[ext_resource type="PackedScene" uid="uid://bosxhvasc4jc7" path="res://Assets/Nature/Trees/pine_tree.glb" id="1_gm2hd"]
+
+[node name="Sketchfab_Scene" unique_id=1680853075 instance=ExtResource("1_gm2hd")]

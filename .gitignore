@@ -1,0 +1,19 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+
+# Godot-specific ignores
+.import/
+*.import
+
+# Mono-specific ignores
+.mono/
+data_*/
+
+# System-specific ignores
+.DS_Store
+Thumbs.db
+
+# Optional: ignore logs, temp files
+*.log
+*.tmp

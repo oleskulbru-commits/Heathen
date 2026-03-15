@@ -1,0 +1,159 @@
+[gd_scene format=3 uid="uid://xr01ljhw352h"]
+
+[ext_resource type="Script" uid="uid://cib2rig7vup10" path="res://addons/terrain_3d/tools/importer.gd" id="1_kgw1c"]
+[ext_resource type="Script" uid="uid://c0yy6wl1w0pbl" path="res://addons/proton_scatter/src/scatter.gd" id="2_8avjm"]
+[ext_resource type="Script" uid="uid://crsatel1udf1j" path="res://addons/proton_scatter/src/stack/modifier_stack.gd" id="3_4ojwe"]
+[ext_resource type="Script" uid="uid://bbc2xd6mw1xug" path="res://addons/proton_scatter/src/modifiers/base_modifier.gd" id="4_jkua4"]
+[ext_resource type="Script" uid="uid://bu7rywwqf4fml" path="res://addons/proton_scatter/src/modifiers/create_inside_random.gd" id="5_0jbnc"]
+[ext_resource type="Script" uid="uid://b08pdq0uy37g0" path="res://addons/proton_scatter/src/modifiers/randomize_transforms.gd" id="6_vw0dg"]
+[ext_resource type="Script" uid="uid://c5nkcgys78170" path="res://addons/proton_scatter/src/modifiers/relax.gd" id="7_fooh1"]
+[ext_resource type="Script" uid="uid://bqiyrobajcepb" path="res://addons/proton_scatter/src/modifiers/project_on_geometry.gd" id="8_7rds5"]
+[ext_resource type="Script" uid="uid://dvyd80s0nhb6m" path="res://addons/proton_scatter/src/scatter_item.gd" id="9_kbdsc"]
+[ext_resource type="Script" uid="uid://mblv0sc31jep" path="res://addons/proton_scatter/src/scatter_shape.gd" id="10_hr0vd"]
+[ext_resource type="Script" uid="uid://cy8317vgiu6fj" path="res://addons/proton_scatter/src/shapes/box_shape.gd" id="11_8avjm"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_kgw1c"]
+
+[sub_resource type="Gradient" id="Gradient_3bleu"]
+offsets = PackedFloat32Array(0.2, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_6q5jd"]
+noise_type = 2
+frequency = 0.03
+cellular_jitter = 3.0
+cellular_return_type = 0
+domain_warp_enabled = true
+domain_warp_type = 1
+domain_warp_amplitude = 50.0
+domain_warp_fractal_type = 2
+domain_warp_fractal_lacunarity = 1.5
+domain_warp_fractal_gain = 1.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_cmvpy"]
+noise = SubResource("FastNoiseLite_6q5jd")
+color_ramp = SubResource("Gradient_3bleu")
+seamless = true
+
+[sub_resource type="Terrain3DMaterial" id="Terrain3DMaterial_ttlhw"]
+_shader_parameters = {
+&"bias_distance": 512.0,
+&"blend_sharpness": 0.5,
+&"depth_blur": 0.0,
+&"enable_macro_variation": true,
+&"enable_projection": true,
+&"flat_terrain_normals": false,
+&"macro_variation1": Color(1, 1, 1, 1),
+&"macro_variation2": Color(1, 1, 1, 1),
+&"macro_variation_slope": 0.333,
+&"mipmap_bias": 1.0,
+&"noise1_angle": 0.0,
+&"noise1_offset": Vector2(0.5, 0.5),
+&"noise1_scale": 0.04,
+&"noise2_scale": 0.076,
+&"noise_texture": SubResource("NoiseTexture2D_cmvpy"),
+&"projection_threshold": 0.8
+}
+show_region_grid = true
+show_checkered = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4jtew"]
+transparency = 4
+cull_mode = 2
+vertex_color_use_as_albedo = true
+backlight_enabled = true
+backlight = Color(0.5, 0.5, 0.5, 1)
+distance_fade_mode = 1
+distance_fade_min_distance = 128.0
+distance_fade_max_distance = 96.0
+
+[sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_komxe"]
+generated_type = 1
+height_offset = 0.5
+material_override = SubResource("StandardMaterial3D_4jtew")
+last_lod = 0
+last_shadow_lod = 0
+lod0_range = 128.0
+
+[sub_resource type="Terrain3DAssets" id="Terrain3DAssets_4hcer"]
+mesh_list = Array[Terrain3DMeshAsset]([SubResource("Terrain3DMeshAsset_komxe")])
+
+[sub_resource type="Resource" id="Resource_8avjm"]
+script = ExtResource("5_0jbnc")
+amount = 125
+restrict_height = true
+reference_frame = 1
+
+[sub_resource type="Resource" id="Resource_4ojwe"]
+script = ExtResource("6_vw0dg")
+position = Vector3(0.15, 0.15, 0.15)
+rotation = Vector3(20, 360, 20)
+scale = Vector3(0.1, 0.1, 0.1)
+reference_frame = 2
+
+[sub_resource type="Resource" id="Resource_jkua4"]
+script = ExtResource("7_fooh1")
+offset_step = 0.2
+consecutive_step_multiplier = 0.75
+restrict_height = true
+
+[sub_resource type="Resource" id="Resource_0jbnc"]
+script = ExtResource("8_7rds5")
+ray_length = 5.0
+ray_offset = 5.0
+remove_points_on_miss = false
+
+[sub_resource type="Resource" id="Resource_vw0dg"]
+script = ExtResource("3_4ojwe")
+stack = Array[ExtResource("4_jkua4")]([SubResource("Resource_8avjm"), SubResource("Resource_4ojwe"), SubResource("Resource_jkua4"), SubResource("Resource_0jbnc")])
+
+[sub_resource type="Resource" id="Resource_fooh1"]
+script = ExtResource("11_8avjm")
+metadata/_custom_type_script = "uid://cy8317vgiu6fj"
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" unique_id=1532590411]
+navigation_mesh = SubResource("NavigationMesh_kgw1c")
+
+[node name="Terrain3D" type="Terrain3D" parent="." unique_id=455935920]
+data_directory = "res://Assets/Levels/Terrain3DLevels"
+material = SubResource("Terrain3DMaterial_ttlhw")
+assets = SubResource("Terrain3DAssets_4hcer")
+show_grid = true
+mesh_lods = 6
+show_region_grid = true
+show_checkered = true
+top_level = true
+script = ExtResource("1_kgw1c")
+height_file_name = "G:/01_projects/42_Atra_Mors/Levels/Height_Maps/2048 EXR's/dtm1-33-106-108-2048.exr"
+import_scale = 0.2
+file_name_out = "frafjord_dirdal_2048"
+metadata/_edit_lock_ = true
+
+[node name="StorBondeHouse" type="CSGBox3D" parent="." unique_id=22419370]
+transform = Transform3D(11.026733, 0, 2.36702, 0, 3.9999998, 0, -4.73404, 0, 5.5133667, 1069.6637, 2.4946032, 788.4143)
+
+[node name="StorBondeHouse2" type="CSGBox3D" parent="." unique_id=2095372464]
+transform = Transform3D(4.220049, 0, -2.681638, 0, 5, 0, 2.681638, 0, 4.220049, 1081.6808, 3.2446284, 778.9392)
+
+[node name="ProtonScatter" type="Node3D" parent="." unique_id=1856007105]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1003.52356, -0.0759573, 777.33716)
+script = ExtResource("2_8avjm")
+modifier_stack = SubResource("Resource_vw0dg")
+Performance/use_chunks = true
+Performance/chunk_dimensions = Vector3(15, 15, 15)
+metadata/_custom_type_script = "uid://c0yy6wl1w0pbl"
+
+[node name="ScatterItem" type="Node3D" parent="ProtonScatter" unique_id=1376089903]
+script = ExtResource("9_kbdsc")
+source_scale_multiplier = 0.04
+path = "uid://c6g6mf60ptph6"
+
+[node name="ScatterShape" type="Node3D" parent="ProtonScatter" unique_id=766370039]
+transform = Transform3D(-393.1346, -1.672212, -18.371885, 6.97229, -99.98456, -0.22426406, -73.46119, -0.5406502, 98.29763, 160.52869, 0, 13.494019)
+script = ExtResource("10_hr0vd")
+shape = SubResource("Resource_fooh1")
+
+[node name="ScatterItem2" type="Node3D" parent="ProtonScatter" unique_id=998552713]
+script = ExtResource("9_kbdsc")
+source_scale_multiplier = 0.04
+path = "uid://db8vhexjvmj7h"

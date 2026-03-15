@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://bwpvdxlmuaixw"]
+
+[ext_resource type="PackedScene" uid="uid://xr01ljhw352h" path="res://Assets/Levels/frafjord_dirdal_v01.tscn" id="2_pu3va"]
+[ext_resource type="PackedScene" uid="uid://dak1ipbutb7yv" path="res://Assets/Characters/Protagonist/Scenes/player.tscn" id="3_0e3vx"]
+[ext_resource type="PackedScene" uid="uid://0py7ywc52yop" path="res://Assets/Levels/Maudal.tscn" id="3_82p1x"]
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_34nvg"]
+ground_color = Color(0.259448, 0.19712088, 0.12685087, 1)
+
+[sub_resource type="Sky" id="Sky_82p1x"]
+sky_material = SubResource("PhysicalSkyMaterial_34nvg")
+
+[sub_resource type="Environment" id="Environment_34nvg"]
+background_mode = 2
+sky = SubResource("Sky_82p1x")
+tonemap_mode = 3
+ssr_enabled = true
+ssao_enabled = true
+ssil_enabled = true
+sdfgi_enabled = true
+sdfgi_use_occlusion = true
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.005
+adjustment_enabled = true
+
+[sub_resource type="CameraAttributesPhysical" id="CameraAttributesPhysical_b7coa"]
+
+[sub_resource type="Compositor" id="Compositor_82p1x"]
+
+[sub_resource type="CameraAttributesPhysical" id="CameraAttributesPhysical_82p1x"]
+
+[sub_resource type="LightmapGIData" id="LightmapGIData_daskt"]
+
+[node name="World" type="Node3D" unique_id=426658312]
+
+[node name="Map" type="Node3D" parent="." unique_id=1776975619]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Map" unique_id=904092308]
+environment = SubResource("Environment_34nvg")
+camera_attributes = SubResource("CameraAttributesPhysical_b7coa")
+compositor = SubResource("Compositor_82p1x")
+
+[node name="NavigationRegion3D" parent="Map" unique_id=1532590411 instance=ExtResource("2_pu3va")]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Map" unique_id=419282982]
+transform = Transform3D(-0.26052812, 0.28371418, -0.9228387, 0.07708296, 0.95890903, 0.27304208, 0.96238416, 2.2531026e-08, -0.27169234, 0, 237.1506, 627.80896)
+
+[node name="Player" parent="." unique_id=1081403627 instance=ExtResource("3_0e3vx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1142.4584, 12.130913, 773.70013)
+
+[node name="Terrain3D" parent="." unique_id=1619208388 instance=ExtResource("3_82p1x")]
+
+[node name="LightmapGI" type="LightmapGI" parent="." unique_id=1123142047]
+camera_attributes = SubResource("CameraAttributesPhysical_82p1x")
+light_data = SubResource("LightmapGIData_daskt")
